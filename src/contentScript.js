@@ -51,17 +51,20 @@ const getRandomComic = (min, max, visited) => {
 };
 
 const insertButton = (id, text) => {
-  for (const nav of document.querySelectorAll('.comicNav')) {
+  for (const nav of document.querySelectorAll(".comicNav")) {
     // each nav needs an anchor with the right url and text
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = `/${id}/`;
     a.textContent = text;
     // the anchor needs to be wrapped in an li
-    const li = document.createElement('li');
+    const li = document.createElement("li");
     li.appendChild(a);
     // stick it into the dom before the next button
-    const next = nav.querySelector('li:nth-child(4)');
+    const next = nav.querySelector("li:nth-child(4)");
     nav.insertBefore(li, next);
   }
 };
-insertButton(getRandomComic, 'Random Unread');
+
+(async () => {
+  insertButton(getRandomComic(1, 2457, await getReadComics()), "Random Unread");
+})();
