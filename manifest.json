@@ -1,23 +1,16 @@
 {
   "update_url": "https://clients2.google.com/service/update2/crx",
-  "name": "Unique xkcd Random Button",
-  "short_name": "Unique xkcd",
+  "name": "Unread XKCD",
+  "short_name": "Unread XKCD",
   "version": "1.0",
   "description": "Adds a unique random button to the xkcd website that allows you to view a random comic that you've never seen before.",
   "manifest_version": 3,
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": [
-        "https://xkcd.com/*",
-        "https://www.xkcd.com/*"
-      ],
+      "matches": ["https://xkcd.com/*", "https://www.xkcd.com/*"],
       "run_at": "document_idle",
-      "js": [
-        "contentScript.js"
-      ]
+      "js": ["contentScript.js"]
     }
   ],
   "icons": {

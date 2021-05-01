@@ -1,0 +1,33 @@
+{
+  "name": "unique-xkcd",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".prettierrc.js",
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,json}\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffreymeng/unique-xkcd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffreymeng/unique-xkcd/issues"
+  },
+  "homepage": "https://github.com/jeffreymeng/unique-xkcd#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json}": "prettier --write"
+  },
+  "dependencies": {
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
+  }
+}
