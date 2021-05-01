@@ -65,6 +65,23 @@ const insertButton = (id, text) => {
   }
 };
 
+/**
+ * @returns {number}
+ */
+const getLatestComicId = async () => {
+  const response = await fetch("https://xkcd.com/info.0.json");
+
+  /**
+   *
+   * @type {{ num: number }}
+   */
+  const data = await response.json();
+  return data.num;
+};
+
 (async () => {
-  insertButton(getRandomComic(1, 2457, await getReadComics()), "Random Unread");
+  insertButton(
+    getRandomComic(1, await getLatestComicId(), await getReadComics()),
+    "Random Unread"
+  );
 })();
