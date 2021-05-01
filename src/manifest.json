@@ -5,7 +5,7 @@
   "version": "1.0",
   "description": "Adds a \"Random Unread\" button to the xkcd website that allows you to view a random xkcd that you've never seen before.",
   "manifest_version": 3,
-  "permissions": ["unlimitedStorage"],
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["https://xkcd.com/*", "https://www.xkcd.com/*"],
