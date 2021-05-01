@@ -1,20 +1,44 @@
+/**
+ *
+ * @returns {Promise<Set<number>>}
+ */
 const getReadComics = async () => {
   return new Promise((res) => {
-    chrome.storage.local.get(["readComics"], function (result) {
-      res(new Set(result));
+    chrome.storage.sync.get(["readComics"], ({ readComics }) => {
+      res(new Set(readComics || []));
     });
   });
 };
 
 /**
- * @param readComics - set of numbers
+ *
+ * @param readComics {Set<number>} - set of numbers
  */
 const setReadComics = async (readComics) => {
   return new Promise((res) => {
-    chrome.storage.local.set({ readComics: Array.from(readComics) }, res());
+    chrome.storage.sync.set({ readComics: Array.from(readComics) }, () =>
+      res()
+    );
   });
 };
 
+/**
+ *
+ * @returns {Promise<void>}
+ */
+const markPageAsVisited = async () => {
+  const currentId = parseInt(window.location.href.split("/")[3], 10);
+  await setReadComics((await getReadComics()).add(currentId));
+};
+markPageAsVisited();
+
+/**
+ *
+ * @param min {number}
+ * @param max {number}
+ * @param visited {Set<number>}
+ * @returns {number}
+ */
 const getRandomComic = (min, max, visited) => {
   // generate an array with all unread comics
   const unread = Array(max - min + 1)
