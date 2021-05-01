@@ -2,10 +2,10 @@
  *
  * @returns {Promise<Set<number>>}
  */
-const getReadComics = async () => {
+const getReadComics = () => {
   return new Promise((res) => {
     chrome.storage.sync.get(["readComics"], ({ readComics }) => {
-      res(new Set(readComics || []));
+      res(new Set(readComics ?? []));
     });
   });
 };
@@ -14,11 +14,9 @@ const getReadComics = async () => {
  *
  * @param readComics {Set<number>} - set of numbers
  */
-const setReadComics = async (readComics) => {
+const setReadComics = (readComics) => {
   return new Promise((res) => {
-    chrome.storage.sync.set({ readComics: Array.from(readComics) }, () =>
-      res()
-    );
+    chrome.storage.sync.set({ readComics: Array.from(readComics) }, res);
   });
 };
 
@@ -28,6 +26,7 @@ const setReadComics = async (readComics) => {
  */
 const markPageAsVisited = async () => {
   const currentId = parseInt(window.location.href.split("/")[3], 10);
+  if (isNaN(currentId)) return;
   await setReadComics((await getReadComics()).add(currentId));
 };
 markPageAsVisited();
