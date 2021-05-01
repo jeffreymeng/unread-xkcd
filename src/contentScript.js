@@ -64,4 +64,4 @@ const insertButton = (id, text) => {
     nav.insertBefore(li, next);
   }
 };
-insertButton(getRandomButton, 'Random Unread');
+insertButton(getRandomComic, 'Random Unread');
