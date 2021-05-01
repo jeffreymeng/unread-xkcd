@@ -86,9 +86,9 @@ const getLatestComicId = async () => {
   return data.num;
 };
 
-const links = insertButtons("Random Unread");
-
 (async () => {
+  const links = insertButtons("Random Unread");
+
   const id = getRandomComic(1, await getLatestComicId(), await getReadComics());
   for (const link of links) {
     link.href = `/${id}/`;
