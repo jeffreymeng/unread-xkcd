@@ -60,7 +60,7 @@ const insertButtons = (text) => {
   for (const nav of document.querySelectorAll(".comicNav")) {
     // each nav needs an anchor with the right text
     const a = document.createElement("a");
-    a.textContent = text;
+    a.innerText = text;
     links.push(a);
     // the anchor needs to be wrapped in an li
     const li = document.createElement("li");
@@ -92,7 +92,7 @@ const getLatestComicId = async () => {
   for (const link of links) {
     if (id === undefined) {
       link.href = "";
-      link.textContent = "No Unread Comics";
+      link.innerText = "No Unread Comics";
       continue;
     }
     link.href = `/${id}/`;
