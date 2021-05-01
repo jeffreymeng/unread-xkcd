@@ -1,5 +1,5 @@
 {
-  "name": "unique-xkcd",
+  "name": "unread-xkcd",
   "version": "1.0.0",
   "description": "",
   "main": ".prettierrc.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeffreymeng/unique-xkcd.git"
+    "url": "git+https://github.com/jeffreymeng/unread-xkcd.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jeffreymeng/unique-xkcd/issues"
+    "url": "https://github.com/jeffreymeng/unread-xkcd/issues"
   },
-  "homepage": "https://github.com/jeffreymeng/unique-xkcd#readme",
+  "homepage": "https://github.com/jeffreymeng/unread-xkcd#readme",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

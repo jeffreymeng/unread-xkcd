@@ -3,7 +3,7 @@
   "name": "Unread XKCD",
   "short_name": "Unread XKCD",
   "version": "1.0",
-  "description": "Adds a unique random button to the xkcd website that allows you to view a random comic that you've never seen before.",
+  "description": "Adds a unique random button to the xkcd website that allows you to view a random xkcd that you've never seen before.",
   "manifest_version": 3,
   "permissions": ["storage"],
   "content_scripts": [
@@ -12,5 +12,10 @@
       "run_at": "document_idle",
       "js": ["contentScript.js"]
     }
-  ]
+  ],
+  "icons": {
+    "16": "icon-16x16.png",
+    "32": "icon-32x32.png",
+    "96": "icon-96x96.png"
+  }
 }
