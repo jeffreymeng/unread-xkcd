@@ -70,8 +70,13 @@ const insertButtons = (text) => {
 const links = insertButtons("Random Unread");
 
 (async () => {
-  const id = getRandomComic(1, 100, await getReadComics());
+  const id = getRandomComic(1, 20, await getReadComics());
   for (const link of links) {
+    if (id === undefined) {
+      link.href = '';
+      link.textContent = "No Unread Comics";
+      continue;
+    }
     link.href = `/${id}/`;
   }
 })();
