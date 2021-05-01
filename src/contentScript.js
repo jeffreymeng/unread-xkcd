@@ -50,6 +50,11 @@ const getRandomComic = (min, max, visited) => {
   return unread[(unread.length * Math.random()) | 0];
 };
 
+/**
+ *
+ * @param text {string} - the name of the button
+ * @returns {HTMLAnchorElement[]}
+ */
 const insertButtons = (text) => {
   const links = [];
   for (const nav of document.querySelectorAll(".comicNav")) {
@@ -67,13 +72,26 @@ const insertButtons = (text) => {
   return links;
 };
 
-const links = insertButtons("Random Unread");
+/**
+ * @returns {number}
+ */
+const getLatestComicId = async () => {
+  const response = await fetch("https://xkcd.com/info.0.json");
+
+  /**
+   *
+   * @type {{ num: number }}
+   */
+  const data = await response.json();
+  return data.num;
+};
 
 (async () => {
-  const id = getRandomComic(1, 20, await getReadComics());
+  const links = insertButtons("Random Unread");
+  const id = getRandomComic(1, await getLatestComicId(), await getReadComics());
   for (const link of links) {
     if (id === undefined) {
-      link.href = '';
+      link.href = "";
       link.textContent = "No Unread Comics";
       continue;
     }
