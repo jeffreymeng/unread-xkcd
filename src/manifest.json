@@ -6,6 +6,7 @@
   "description": "Adds a unique random button to the xkcd website that allows you to view a random xkcd that you've never seen before.",
   "manifest_version": 3,
   "permissions": ["storage"],
+  "optional_permissions": ["history"],
   "content_scripts": [
     {
       "matches": ["https://xkcd.com/*", "https://www.xkcd.com/*"],
@@ -13,6 +14,10 @@
       "js": ["contentScript.js"]
     }
   ],
+  "action": {
+    "default_title": "Unread XKCD",
+    "default_popup": "popup/index.html"
+  },
   "icons": {
     "16": "icons/icon-16x16.png",
     "32": "icons/icon-32x32.png",
