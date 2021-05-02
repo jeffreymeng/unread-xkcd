@@ -1,4 +1,9 @@
-import { getReadComics, addReadComics, parseUrl } from '../util.js';
+import {
+  getReadComics,
+  addReadComics,
+  parseUrl,
+  comicsFromArray
+} from '../modules/util.js';
 
 const buttons = new Map([
   ['Load Browser History', async () => {
@@ -14,10 +19,9 @@ const buttons = new Map([
     chrome.permissions.remove({
       permissions: ['history']
     });
-    const comics = candidatePages
+    const comics = comicsFromArray(candidatePages
       .map(({ url }) => parseUrl(url))
-      .filter(v => v)
-      .reduce((n, v) => n | (1n << BigInt(v)), 0n);
+      .filter(v => v))
     await addReadComics(comics);
     alert('History loaded.');
   }],
@@ -29,7 +33,7 @@ const buttons = new Map([
     const textarea = document.querySelector('textarea');
     const data = textarea.value;
     try {
-      await addReadComics(BigInt(data));
+      await addReadComics(data);
       textarea.value = '';
       alert('Data loaded.');
     } catch {
