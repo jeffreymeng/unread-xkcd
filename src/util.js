@@ -1,12 +1,12 @@
-const addId = (n, id) => {
+export const addId = (n, id) => {
   return n + (1n << BigInt(id));
 };
 
-const hasId = (n, id) => {
-  return ((n >> BigInt(id)) & 1n) !== 0;
+export const hasId = (n, id) => {
+  return ((n >> BigInt(id)) & 1n) !== 0n;
 };
 
-const getReadComics = () => {
+export const getReadComics = () => {
   return new Promise((resolve) => {
     chrome.storage.sync.get(
       ['readComics'],
@@ -15,7 +15,7 @@ const getReadComics = () => {
   });
 };
 
-const setReadComics = (readComics) => {
+export const setReadComics = (readComics) => {
   return new Promise((resolve) => {
     chrome.storage.sync.set({
       readComics: readComics.toString()
@@ -23,16 +23,16 @@ const setReadComics = (readComics) => {
   });
 };
 
-const addReadComics = async (comics) => {
+export const addReadComics = async (comics) => {
   const readComics = await getReadComics() | comics;
   return setReadComics(readComics);
 };
 
-const addReadComic = async (id) => {
+export const addReadComic = async (id) => {
   return addReadComics(1n << BigInt(id));
 };
 
-const parseUrl = (url) => {
+export const parseUrl = (url) => {
   const { host, pathname } = new URL(url);
   if (host !== 'xkcd.com') return NaN;
   if (!pathname.match(/^\/\d+\/$/)) return NaN;

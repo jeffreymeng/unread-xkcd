@@ -3,7 +3,7 @@ const addId = (n, id) => {
 };
 
 const hasId = (n, id) => {
-  return ((n >> BigInt(id)) & 1n) !== 0;
+  return ((n >> BigInt(id)) & 1n) !== 0n;
 };
 
 const getReadComics = () => {
@@ -62,7 +62,7 @@ const getRandomComic = (min, max, visited) => {
   const unread = Array(max - min + 1)
     .fill(0)
     .map((v, i) => i + min)
-    .filter((v) => hasId(visited, v));
+    .filter((v) => !hasId(visited, v));
   // pick a random comic
   // | 0 truncates
   return unread[(unread.length * Math.random()) | 0];

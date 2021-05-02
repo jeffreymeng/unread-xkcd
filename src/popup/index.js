@@ -1,4 +1,4 @@
-import { getReadComics, addReadComics, parseUrl } from '../util';
+import { getReadComics, addReadComics, parseUrl } from '../util.js';
 
 const buttons = new Map([
   ['Load Browser History', async () => {
@@ -17,7 +17,7 @@ const buttons = new Map([
     const comics = candidatePages
       .map(({ url }) => parseUrl(url))
       .filter(v => v)
-      .reduce((n, v) => n | (1n << v), 0n);
+      .reduce((n, v) => n | (1n << BigInt(v)), 0n);
     await addReadComics(comics);
     alert('History loaded.');
   }],
@@ -26,9 +26,11 @@ const buttons = new Map([
     document.querySelector('textarea').value = comics.toString(); 
   }],
   ['Import Data', async () => {
-    const data = document.querySelector('textarea').value;
+    const textarea = document.querySelector('textarea');
+    const data = textarea.value;
     try {
       await addReadComics(BigInt(data));
+      textarea.value = '';
       alert('Data loaded.');
     } catch {
       return alert('Invalid data.');
