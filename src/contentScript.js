@@ -1,33 +1,52 @@
-/**
- *
- * @returns {Promise<Set<number>>}
- */
+const addId = (n, id) => {
+  return n + (1n << BigInt(id));
+};
+
+const hasId = (n, id) => {
+  return ((n >> BigInt(id)) & 1n) !== 0;
+};
+
 const getReadComics = () => {
-  return new Promise((res) => {
-    chrome.storage.sync.get(["readComics"], ({ readComics }) => {
-      res(new Set(readComics ?? []));
-    });
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(
+      ['readComics'],
+      ({ readComics }) => resolve(BigInt(readComics))
+    );
   });
 };
 
-/**
- *
- * @param readComics {Set<number>} - set of numbers
- */
 const setReadComics = (readComics) => {
-  return new Promise((res) => {
-    chrome.storage.sync.set({ readComics: Array.from(readComics) }, res);
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({
+      readComics: readComics.toString()
+    }, resolve);
   });
 };
+
+const addReadComics = async (comics) => {
+  const readComics = await getReadComics() | comics;
+  return setReadComics(readComics);
+};
+
+const addReadComic = async (id) => {
+  return addReadComics(1n << BigInt(id));
+};
+
+const parseUrl = (url) => {
+  const { host, pathname } = new URL(url);
+  if (host !== 'xkcd.com') return NaN;
+  if (!pathname.match(/^\/\d+\/$/)) return NaN;
+  return parseInt(pathname.match(/\d+/)[0], 10);
+}
 
 /**
  *
  * @returns {Promise<void>}
  */
-const markPageAsVisited = async () => {
-  const currentId = parseInt(window.location.href.split("/")[3], 10);
-  if (isNaN(currentId)) return;
-  await setReadComics((await getReadComics()).add(currentId));
+const markPageAsVisited = () => {
+  const id = parseUrl(window.location.href);
+  if (isNaN(id)) return;
+  return addReadComic(id);
 };
 markPageAsVisited();
 
@@ -43,7 +62,7 @@ const getRandomComic = (min, max, visited) => {
   const unread = Array(max - min + 1)
     .fill(0)
     .map((v, i) => i + min)
-    .filter((v) => !visited.has(v));
+    .filter((v) => hasId(visited, v));
   // pick a random comic
   // | 0 truncates
   return unread[(unread.length * Math.random()) | 0];
@@ -76,11 +95,6 @@ const insertButtons = (text) => {
  */
 const getLatestComicId = async () => {
   const response = await fetch("https://xkcd.com/info.0.json");
-
-  /**
-   *
-   * @type {{ num: number }}
-   */
   const data = await response.json();
   return data.num;
 };

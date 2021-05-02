@@ -1,23 +1,4 @@
-const getData = (ids) => {
-  return new Promise((resolve) => {
-    chrome.storage.sync.get(
-      ['readComics'],
-      ({ readComics }) => resolve(readComics)
-    );
-  });
-}
-
-const loadData = async (ids) => {
-  const current = new Set(await getData() ?? []);
-  for (const id of ids) {
-    current.add(id);
-  }
-  return new Promise((resolve) => {
-    chrome.storage.sync.set({
-      readComics: Array.from(current)
-    }, resolve);
-  });
-};
+import { getReadComics, addReadComics, parseUrl } from '../util';
 
 const buttons = new Map([
   ['Load Browser History', async () => {
@@ -33,30 +14,25 @@ const buttons = new Map([
     chrome.permissions.remove({
       permissions: ['history']
     });
-    const ids = candidatePages
-      .map(({ url }) => new URL(url))
-      .filter(({ host }) => host === 'xkcd.com')
-      .filter(({ pathname }) => pathname.match(/^\/\d+\/$/))
-      .map(({ pathname }) => parseInt(pathname.match(/\d+/)[0], 10))
-      .filter(v => v);
-    await loadData(ids);
+    const comics = candidatePages
+      .map(({ url }) => parseUrl(url))
+      .filter(v => v)
+      .reduce((n, v) => n | (1n << v), 0n);
+    await addReadComics(comics);
     alert('History loaded.');
   }],
   ['Export Data', async () => {
-    const ids = await getData();
-    document.querySelector('textarea').value = JSON.stringify(ids);
+    const comics = await getReadComics();
+    document.querySelector('textarea').value = comics.toString(); 
   }],
   ['Import Data', async () => {
     const data = document.querySelector('textarea').value;
-    let ids = []
     try {
-      const parsed = JSON.parse(data);
-      ids = parsed.filter(v => typeof(v) === 'number');
+      await addReadComics(BigInt(data));
+      alert('Data loaded.');
     } catch {
       return alert('Invalid data.');
     }
-    await loadData(ids);
-    alert('Data loaded.');
   }],
   ['Clear Data', async () => {
     const confirmation = document.querySelector('input').value;
@@ -64,7 +40,7 @@ const buttons = new Map([
       return alert('Please type "Permanently Clear Data" to confirm.');
     await new Promise((resolve) => {
       chrome.storage.sync.set({
-        readComics: []
+        readComics: '0'
       }, resolve);
     });
     alert('Data cleared.');
