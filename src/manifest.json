@@ -14,10 +14,12 @@
       "js": ["contentScript.js"]
     }
   ],
-  "web_accessible_resources": [{
-    "resources": ["modules/util.js"],
-    "matches": ["https://xkcd.com/*"]
-  }],
+  "web_accessible_resources": [
+    {
+      "resources": ["modules/util.js"],
+      "matches": ["https://xkcd.com/*"]
+    }
+  ],
   "action": {
     "default_title": "Unread XKCD",
     "default_popup": "popup/index.html"
