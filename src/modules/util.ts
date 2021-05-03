@@ -39,7 +39,9 @@ export const setReadComics = (readComics: bigint): Promise<void> => {
   });
 };
 
-export const addReadComics = async (comics: bigint | number): Promise<void> => {
+export const addReadComics = async (
+  comics: number | string | bigint
+): Promise<void> => {
   const readComics = (await getReadComics()) | BigInt(comics);
   return setReadComics(readComics);
 };

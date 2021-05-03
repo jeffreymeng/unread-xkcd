@@ -25,7 +25,7 @@ const attachEventListeners = () => {
       permissions: ["history"],
     });
     const comics = comicsFromArray(
-      candidatePages.map(({ url }) => parseUrl(url)).filter((v) => v)
+      candidatePages.map(({ url }) => parseUrl(url ?? "")).filter((v) => v)
     );
     await addReadComics(comics);
     alert("History loaded.");
@@ -38,7 +38,6 @@ const attachEventListeners = () => {
     const textarea = $("#import-data-textarea");
     const data = textarea.val();
     try {
-      // TODO
       await addReadComics(data);
       textarea.val("");
       alert("Data loaded.");
