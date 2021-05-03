@@ -6,8 +6,7 @@
   "scripts": {
     "format": "prettier --write \"**/*.{js,json}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "tsc --watch"
+    "build": "rm -rf dist && mkdir dist && mkdir dist/icons && mkdir dist/popup && cp -R src/icons dist/icons && cp src/popup/index.html dist/popup/index.html && cp src/popup/styles.css dist/popup/styles.css && esbuild src/popup/index.ts --bundle --minify --outfile=dist/popup/index.js && esbuild src/popup/index.ts --bundle --minify --outfile=dist/popup/index.js && esbuild src/contentScript.ts --bundle --minify --outfile=dist/contentScript.js && zip -r dist.zip dist"
   },
   "repository": {
     "type": "git",

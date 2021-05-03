@@ -1,33 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-        <script type="module" src="../modules/util.js"></script>
-        <script type="module" src="index.js"></script>
-    </head>
-    <body>
-        <section>
-            By default, this extension only keeps track of comics read while it is active.
-            However, browser history can be loaded to avoid revisiting comics read before installation or on mobile:
-            <div class="centered"><button>Load Browser History</button></div>
-        </section>
-        <section>
-            Additionally, this extension can export and import data about viewed comics.
-            This is useful when changing browsers or Google accounts.
-            <div class="centered">
-                <textarea></textarea>
-                <button>Export Data</button>
-                <button>Import Data</button>
-            </div>
-        </section>
-        <section>
-            Type "Permanently Clear Data" to clear history.
-            <div class="centered">
-                <div>
-                    <input type="text">
-                    <button>Clear Data</button>
-                </div>
-            </div>
-        </section>
-    </body>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="../modules/util.js"></script>
+    <script type="module" src="index.js"></script>
+  </head>
+  <body>
+    <section>
+      By default, this extension only keeps track of comics read while it is
+      active. However, browser history can be loaded to avoid revisiting comics
+      read before installation or on mobile:
+      <div class="centered">
+        <button id="load-history-btn">Load Browser History</button>
+      </div>
+    </section>
+    <section>
+      Additionally, this extension can export and import data about viewed
+      comics. This is useful when changing browsers or Google accounts.
+      <div class="centered">
+        <textarea id="import-data-textarea"></textarea>
+        <button id="export-data-btn">Export Data</button>
+        <button id="import-data-btn">Import Data</button>
+      </div>
+    </section>
+    <section>
+      Type "Permanently Clear Data" (and click the button) to clear all history
+      stored by this extension. We recommend you export your data before doing
+      this, as this action is irreversible.
+      <div class="centered">
+        <div>
+          <input id="clear-data-input" type="text" />
+          <button id="clear-data-btn">Clear Data</button>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

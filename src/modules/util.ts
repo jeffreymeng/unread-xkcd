@@ -55,3 +55,35 @@ export const parseUrl = (url: string): number => {
   if (!matches) return NaN;
   return parseInt(matches[0], 10);
 };
+interface ValueUtility {
+  (): string;
+  (value: string): void;
+}
+export interface ElementWithUtilities extends Element {
+  on: (event: string, handler: () => void) => void;
+  click: (handler: () => void) => void;
+  val: ValueUtility;
+}
+export const $ = (selector: string) => {
+  const wrapper = document.querySelector(selector) as ElementWithUtilities;
+  if (!wrapper) {
+    throw new Error("Element not found");
+  }
+  wrapper.on = (event: string, handler: () => void) => {
+    wrapper.addEventListener(event, handler);
+  };
+  wrapper.click = (handler: () => void) => {
+    wrapper.on("click", handler);
+  };
+
+  wrapper.val = ((value?: string): string | void => {
+    if (!value) {
+      return (wrapper as (HTMLInputElement | HTMLTextAreaElement) &
+        ElementWithUtilities).value;
+    }
+    (wrapper as (HTMLInputElement | HTMLTextAreaElement) &
+      ElementWithUtilities).value = value;
+  }) as ValueUtility;
+
+  return wrapper;
+};
