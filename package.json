@@ -28,9 +28,14 @@
   },
   "dependencies": {
     "@types/chrome": "^0.0.136",
+    "copy-webpack-plugin": "^8.1.1",
     "esbuild": "^0.11.17",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "webpack": "^5.36.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.6.0"
   }
 }
