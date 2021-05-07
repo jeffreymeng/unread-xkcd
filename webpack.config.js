@@ -7,6 +7,7 @@ module.exports = {
     contentScript: "./src/content-script.ts",
     popup: "./src/popup/index.ts",
   },
+  devtool: "cheap-module-source-map",
   module: {
     rules: [
       {

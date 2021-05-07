@@ -2,7 +2,7 @@
   "update_url": "https://clients2.google.com/service/update2/crx",
   "name": "Unread XKCD",
   "short_name": "Unread XKCD",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Adds a \"Random Unread\" button to the xkcd website that allows you to view a random xkcd that you've never seen before.",
   "manifest_version": 3,
   "permissions": ["storage"],
