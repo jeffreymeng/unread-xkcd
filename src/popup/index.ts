@@ -20,7 +20,7 @@ const attachEventListeners = () => {
       (resolve) => {
         chrome.history.search({
           text: "xkcd",
-          maxResults: Number.MAX_SAFE_INTEGER,
+          maxResults: 2147483647,
           startTime: 0
         }, resolve);
       }
