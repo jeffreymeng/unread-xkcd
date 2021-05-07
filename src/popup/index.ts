@@ -18,7 +18,11 @@ const attachEventListeners = () => {
     if (!permission) return alert("Failed to load history.");
     const candidatePages = await new Promise<chrome.history.HistoryItem[]>(
       (resolve) => {
-        chrome.history.search({ text: "xkcd" }, resolve);
+        chrome.history.search({
+          text: "xkcd",
+          maxResults: Number.MAX_SAFE_INTEGER,
+          startTime: 0
+        }, resolve);
       }
     );
     chrome.permissions.remove({
