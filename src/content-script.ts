@@ -1,10 +1,16 @@
 import {
-  addId,
   hasId,
   getReadComics,
   addReadComic,
   parseUrl,
 } from "./modules/util";
+
+const markPageAsVisited = () => {
+  const id = parseUrl(window.location.href);
+  if (isNaN(id)) return;
+  return addReadComic(id);
+};
+markPageAsVisited();
 
 const getRandomComic = (min: number, max: number, visited: bigint) => {
   // generate an array with all unread comics
@@ -34,10 +40,7 @@ const insertButtons = (text: string): HTMLAnchorElement[] => {
   return links;
 };
 
-/**
- * @returns {number}
- */
-const getLatestComicId = async () => {
+const getLatestComicId = async (): Promise<number> => {
   const response = await fetch("https://xkcd.com/info.0.json");
   const data = await response.json();
   return data.num;

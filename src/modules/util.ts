@@ -23,7 +23,7 @@ export const comicsFromArray = (array: number[]) => {
 export const getReadComics = (): Promise<bigint> => {
   return new Promise((resolve) => {
     chrome.storage.sync.get(["readComics"], ({ readComics }) =>
-      resolve(BigInt(readComics))
+      resolve(BigInt(readComics ?? 0))
     );
   });
 };
@@ -55,7 +55,7 @@ export const parseUrl = (url: string): number => {
   if (host !== "xkcd.com") return NaN;
   const matches = pathname.match(/^\/(\d+)\/$/);
   if (!matches) return NaN;
-  return parseInt(matches[0], 10);
+  return parseInt(matches[1], 10);
 };
 interface ValueUtility {
   (): string;
