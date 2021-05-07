@@ -6,7 +6,7 @@
   "scripts": {
     "format": "prettier --write \"**/*.{js,json}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && mkdir dist && mkdir dist/icons && mkdir dist/popup && cp src/manifest.json dist/manifest.json && cp -R src/icons dist/icons && cp src/popup/index.html dist/popup/index.html && cp src/popup/styles.css dist/popup/styles.css && esbuild src/popup/index.ts --bundle --minify --outfile=dist/popup/index.js && esbuild src/popup/index.ts --bundle --minify --outfile=dist/popup/index.js && esbuild src/contentScript.ts --bundle --minify --outfile=dist/contentScript.js && zip -r dist.zip dist"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -28,14 +28,17 @@
   },
   "dependencies": {
     "@types/chrome": "^0.0.136",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^8.1.1",
     "esbuild": "^0.11.17",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "ts-loader": "^9.1.1",
     "webpack": "^5.36.2"
   },
   "devDependencies": {
-    "webpack-cli": "^4.6.0"
+    "typescript": "^4.2.4",
+    "webpack-cli": "^4.7.0"
   }
 }

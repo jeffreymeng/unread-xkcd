@@ -14,15 +14,9 @@
       "js": ["contentScript.js"]
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["modules/util.js"],
-      "matches": ["https://xkcd.com/*"]
-    }
-  ],
   "action": {
     "default_title": "Unread XKCD",
-    "default_popup": "popup/index.html"
+    "default_popup": "index.html"
   },
   "icons": {
     "16": "icons/icon-16x16.png",
