@@ -6,7 +6,9 @@
   "scripts": {
     "format": "prettier --write \"**/*.{js,json}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack build --mode=production",
+    "develop": "webpack watch --mode=development",
+    "start": "npm run develop"
   },
   "repository": {
     "type": "git",
